@@ -1,15 +1,15 @@
 package com.bootcamp.model;
 
 public class IdeaDTO {
-    private int idea_id;
+    private Integer idea_id;
     private String idea_summary;
     private String idea_details;
     private String idea_category;
     private String idea_team_members;
-    private int idea_likes;
+    private Integer idea_likes;
     private Integer ihackathon_id;
 
-    public IdeaDTO( String idea_summary, String idea_details, String idea_category, String idea_team_members, int idea_likes, Integer ihackathon_id) {
+    public IdeaDTO( String idea_summary, String idea_details, String idea_category, String idea_team_members, Integer idea_likes, Integer ihackathon_id) {
         super();
         this.idea_summary = idea_summary;
         this.idea_details = idea_details;
@@ -19,16 +19,13 @@ public class IdeaDTO {
         this.ihackathon_id = ihackathon_id;
     }
 
-    public IdeaDTO() {
+    public IdeaDTO() { }
 
-    }
-
-
-    public int getIdea_id() {
+    public Integer getIdea_id() {
         return idea_id;
     }
 
-    public void setIdea_id(int idea_id) {
+    public void setIdea_id(Integer idea_id) {
         this.idea_id = idea_id;
     }
 
@@ -64,11 +61,11 @@ public class IdeaDTO {
         this.idea_team_members = idea_team_members;
     }
 
-    public int getIdea_likes() {
+    public Integer getIdea_likes() {
         return idea_likes;
     }
 
-    public void setIdea_likes(int idea_likes) {
+    public void setIdea_likes(Integer idea_likes) {
         this.idea_likes = idea_likes;
     }
 

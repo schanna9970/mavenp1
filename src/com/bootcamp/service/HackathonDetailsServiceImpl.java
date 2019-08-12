@@ -1,29 +1,16 @@
 package com.bootcamp.service;
 
-import com.bootcamp.model.*;
+import com.bootcamp.model.HackathonDetailDTO;
+import com.bootcamp.model.HackathonDetailsEntity;
 import com.bootcamp.repository.HackathonDetailsRepo;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
-import org.hibernate.service.ServiceRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class HackathonDetailsServiceImpl implements HackathonDetailsService{
     @Autowired
     HackathonDetailsRepo hackathonDetailsRepo;
-
-    @Autowired
-    private  static SessionFactory sessionFactory;
-    private  static ServiceRegistry serviceRegistry;
 
     @Override
     public List<HackathonDetailsEntity> getHackathonDetails() {
@@ -33,7 +20,7 @@ public class HackathonDetailsServiceImpl implements HackathonDetailsService{
     @Override
     public List<HackathonDetailDTO> getHackathonDetailsDTO() {return  hackathonDetailsRepo.getHackathonDetailsDTO();}
 
-    @Override
+   /* @Override
     public List<IdeaDTO> getIdeaDTO() {
         return hackathonDetailsRepo.getIdeaDTO();
     }
@@ -45,12 +32,27 @@ public class HackathonDetailsServiceImpl implements HackathonDetailsService{
     }
 
     @Override
-    public Map<String,List<IdeaDTO>> getIdeaList(int id) {
-        return hackathonDetailsRepo.getIdeaList(id);
+    public Map<String,List<IdeaDTO>> getIdeaListbyID(int id) {
+        return hackathonDetailsRepo.getIdeaListbyID(id);
     }
 
     @Override
     public String postHackathonIdea(int HackathonId) {
         return hackathonDetailsRepo.postHackathonIdea(HackathonId);
     }
+
+    @Override
+    public IdeaDTO editIdea(Integer idea1_id) {
+        return hackathonDetailsRepo.editIdea(idea1_id);
+    }
+
+    @Override
+    public IdeaDTO editIdeathroughPostman(Integer idea1_id, IdeaDTO ideaDTO) {
+        return hackathonDetailsRepo.editIdeathroughPostman(idea1_id,ideaDTO);
+    }
+
+    @Override
+    public IdeaDTO likeIdea(Integer idea_id) {
+        return hackathonDetailsRepo.likeIdea(idea_id);
+    }*/
 }

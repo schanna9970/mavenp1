@@ -15,7 +15,7 @@
         <property name="show_sql">true</property>
         <property name="hbm2ddl.auto">update</property>
         <mapping class="com.bootcamp.model.HackathonDetailsEntity"/>
-        <mapping resource="com/bootcamp/repository/HackathonDetailsEntity.hbm.xml"/>
+       <!-- <mapping resource="com/bootcamp/repository/HackathonDetailsEntity.hbm.xml"/>-->
         <mapping class="com.bootcamp.model.IdeaEntity"/>
 
         <!-- <property name="connection.username"/> -->

@@ -6,21 +6,22 @@ import java.util.Objects;
 @Entity
 @Table(name = "ideas", schema = "bootcamp")
 public class IdeaEntity {
-    private int idea_id;
+    private Integer idea_id;
     private String idea_summary;
     private String idea_details;
     private String idea_category;
     private String idea_team_members;
-    private int idea_likes;
+    private Integer idea_likes;
     private Integer ihackathon_id;
 
     @Id
-    @Column(name = "idea_id")
-    public int getId() {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name ="idea_id")
+    public Integer getId() {
         return idea_id;
     }
-    public void setId(int idea_id) {
-        this.idea_id = idea_id;
+    public void setId(Integer idea1_id) {
+        this.idea_id = idea1_id;
     }
 
     @Basic
@@ -61,10 +62,10 @@ public class IdeaEntity {
 
     @Basic
     @Column(name = "idea_likes")
-    public int getIdea_likes() {
+    public Integer getIdea_likes() {
         return idea_likes;
     }
-    public void setIdea_likes(int idea_likes) {
+    public void setIdea_likes(Integer idea_likes) {
         this.idea_likes = idea_likes;
     }
 

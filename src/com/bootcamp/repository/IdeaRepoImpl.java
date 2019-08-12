@@ -1,7 +1,7 @@
 package com.bootcamp.repository;
 
-import com.bootcamp.model.HackathonDetailDTO;
 import com.bootcamp.model.HackathonDetailsEntity;
+import com.bootcamp.model.IdeaDTO;
 import com.bootcamp.model.IdeaEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,16 +11,14 @@ import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
-public class HackathonDetailsrepoImpl implements HackathonDetailsRepo
-{
-    SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
+public class IdeaRepoImpl implements IdeaRepo{
+
     Configuration configuration = new Configuration();
     @Autowired
     private  static SessionFactory sessionFactory;
@@ -29,88 +27,7 @@ public class HackathonDetailsrepoImpl implements HackathonDetailsRepo
     List<HackathonDetailsEntity>  list=new ArrayList<>();
     List<IdeaEntity> ideaEntityList=new ArrayList<>();
 
-
     @Override
-    public List<HackathonDetailsEntity> getHackathonDetails()
-    {
-        try{
-            Session session=getSession1();
-            session.beginTransaction();
-            Query<HackathonDetailsEntity> query=session.createQuery("From HackathonDetailsEntity ",HackathonDetailsEntity.class);
-            List<HackathonDetailsEntity>  hackthonDetailsEntityList=query.getResultList();
-            for (int i = 0; i <hackthonDetailsEntityList.size(); i++) {
-                {
-                    HackathonDetailsEntity hackthonDetailsEntity= (HackathonDetailsEntity) hackthonDetailsEntityList.get(i);
-                    printHackathonDetails(hackthonDetailsEntity);
-                }
-            }
-            session.close();
-        }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
-        }
-        return list;
-    }
-
-    public void printHackathonDetails(HackathonDetailsEntity hackathonDetailsEntity) throws ParseException
-    {
-        SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
-        String temp_date=dateFormat2.format(hackathonDetailsEntity.getDateConducted());
-        System.out.println(temp_date);
-        Date d= (Date) dateFormat2.parseObject(temp_date);
-        System.out.println(d);
-        list.add(hackathonDetailsEntity);
-        System.out.println("Event name"+hackathonDetailsEntity.getEventName()+" Mo-Office"+hackathonDetailsEntity.getMoOffice()+" No of Entries"+hackathonDetailsEntity.getTotalIdea()+" Date"+hackathonDetailsEntity.getDateConducted());
-    }
-
-    @Override
-    public List<HackathonDetailDTO> getHackathonDetailsDTO() {
-        List<HackathonDetailDTO> list=new ArrayList<>();
-        try{
-            Session session=getSession1();
-            session.beginTransaction();
-            Query<HackathonDetailsEntity> query=session.createQuery("From HackathonDetailsEntity ",HackathonDetailsEntity.class);
-            List<HackathonDetailsEntity>  hackthonDetailsEntityList=query.getResultList();
-            for (int i = 0; i <hackthonDetailsEntityList.size(); i++) {
-                {
-                    HackathonDetailDTO dto=new HackathonDetailDTO();
-                    HackathonDetailsEntity hackthonDetailsEntity= (HackathonDetailsEntity) hackthonDetailsEntityList.get(i);
-                    setHackathonDetailsDTO(dto,hackthonDetailsEntity);
-                    list.add(dto);
-                }
-            }
-            session.close();
-        }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
-        }
-        return list;
-
-    }
-
-    public void setHackathonDetailsDTO(HackathonDetailDTO hackathonDetailsDTO,HackathonDetailsEntity hackathonDetailsEntity)
-    {
-        hackathonDetailsDTO.setId(hackathonDetailsEntity.getId());
-        String temp_date=dateFormat2.format(hackathonDetailsEntity.getDateConducted());
-        hackathonDetailsDTO.setDateConducted(temp_date);
-        hackathonDetailsDTO.setTotalIdea(hackathonDetailsEntity.getTotalIdea());
-        hackathonDetailsDTO.setMoOffice(hackathonDetailsEntity.getMoOffice());
-        hackathonDetailsDTO.setEventName(hackathonDetailsEntity.getEventName());
-    }
-
-    public Session getSession1()
-    {
-        configuration.addAnnotatedClass(com.bootcamp.model.IdeaEntity.class);
-        configuration.addAnnotatedClass(com.bootcamp.model.HackathonDetailsEntity.class);
-        configuration.configure();
-        serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
-        sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-        Session session = sessionFactory.openSession();
-        return session;
-    }
-    /*@Override
     public List<IdeaDTO> getIdeaDTO() {
         List<IdeaDTO> list=new ArrayList<>();
         try{
@@ -174,12 +91,12 @@ public class HackathonDetailsrepoImpl implements HackathonDetailsRepo
             Query<String> query2 = session.createQuery("select eventName From HackathonDetailsEntity HD  where HD.id=:id").setParameter("id",id);
             String name=query2.getSingleResult();
             for (int i = 0; i <ideaEntityList.size(); i++)
-                {
-                    IdeaDTO dto=new IdeaDTO();
-                    IdeaEntity ideaEntity=(IdeaEntity) ideaEntityList.get(i);
-                    setIdeaDTO(dto,ideaEntity);
-                    list.add(dto);
-                }
+            {
+                IdeaDTO dto=new IdeaDTO();
+                IdeaEntity ideaEntity=(IdeaEntity) ideaEntityList.get(i);
+                setIdeaDTO(dto,ideaEntity);
+                list.add(dto);
+            }
             map.put(name,list);
             session.close();
         }
@@ -194,7 +111,7 @@ public class HackathonDetailsrepoImpl implements HackathonDetailsRepo
     public String postHackathonIdea(int HackathonId)
     {
         IdeaDTO ideaDTO=new IdeaDTO("Gewt results","Getting Results","Domain","snehal Poornima",9,HackathonId);
-       IdeaEntity ideaEntity=new IdeaEntity();
+        IdeaEntity ideaEntity=new IdeaEntity();
         try {
             Session session=getSession1();
             session.beginTransaction();
@@ -298,17 +215,14 @@ public class HackathonDetailsrepoImpl implements HackathonDetailsRepo
         return  ideaDTO;
     }
 
-    private void printIdeaDetails(IdeaEntity ideaEntity) {
-        //idealist.add(ideaEntity);
-        System.out.println("Id:"+ideaEntity.getId()+" Idea Category"+ideaEntity.getIdea_category()+" Idea details"+ideaEntity.getIdea_details()+" Idea Summary"+ideaEntity.getIdea_summary()+" Team Members:"+ideaEntity.getIdea_team_members()+" Idea Likes:"+ideaEntity.getIdea_likes()+" Hackathon Id:"+ideaEntity.getIhackathon_id());
-    }
-
-    public Session getSession()
+    public Session getSession1()
     {
+        configuration.addAnnotatedClass(com.bootcamp.model.IdeaEntity.class);
+        configuration.addAnnotatedClass(com.bootcamp.model.HackathonDetailsEntity.class);
+        configuration.configure();
         serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
         sessionFactory = configuration.buildSessionFactory(serviceRegistry);
         Session session = sessionFactory.openSession();
         return session;
-    }*/
-
+    }
 }

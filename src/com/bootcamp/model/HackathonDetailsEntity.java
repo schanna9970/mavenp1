@@ -6,19 +6,19 @@ import java.util.*;
 @Entity
 @Table(name = "hackathon_details", schema = "bootcamp")
 public class HackathonDetailsEntity {
-    private int id;
+    private Integer id;
     private String eventName;
     private String moOffice;
     private Date dateConducted;
-    private int totalIdea;
+    private Integer totalIdea;
 
     @Id
     @Column(name = "id")
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -54,11 +54,11 @@ public class HackathonDetailsEntity {
 
     @Basic
     @Column(name = "totalIdea")
-    public int getTotalIdea() {
+    public Integer getTotalIdea() {
         return totalIdea;
     }
 
-    public void setTotalIdea(int totalIdea) {
+    public void setTotalIdea(Integer totalIdea) {
         this.totalIdea = totalIdea;
     }
 

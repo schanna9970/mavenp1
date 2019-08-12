@@ -1,19 +1,17 @@
 package com.bootcamp.model;
 
-import java.util.Date;
-
 public class HackathonDetailDTO {
-        private int id;
+        private Integer id;
         private String eventName;
         private String moOffice;
         private String dateConducted;
-        private int totalIdea;
+        private Integer totalIdea;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -41,11 +39,11 @@ public class HackathonDetailDTO {
         this.dateConducted = dateConducted;
     }
 
-    public int getTotalIdea() {
+    public Integer getTotalIdea() {
         return totalIdea;
     }
 
-    public void setTotalIdea(int totalIdea) {
+    public void setTotalIdea(Integer totalIdea) {
         this.totalIdea = totalIdea;
     }
 }
